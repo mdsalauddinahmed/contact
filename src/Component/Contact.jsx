@@ -1,11 +1,22 @@
   import emailjs from "emailjs-com"
+import Swal from "sweetalert2";
  
  const Contact=()=>{
   const sendEmail=(e)=>{
     e.preventDefault();
 
     emailjs.sendForm("service_mhkmgf3","template_ozumdt9",e.target,"CUubxwCzq7dXsrW7Q")
-    .then(res=>console.log(res))
+    .then(res=>{
+        console.log(res)
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500
+          })
+      e.target.reset();
+    })
     .catch(err=>console.log(err))
  
   }
@@ -19,23 +30,48 @@ return(
    backgroundSize:"cover"
 }}>
 
-    <h2>Contact Me</h2>
-        <form className="row" style={{margin:"25px 85px 75px 100px"}} onSubmit={sendEmail} >
- 
-      <input type="text" name="name" className="form-control" placeholder="Name"/>
- 
-      <input type="email" name="user_email" className="form-control my-4" placeholder="Email" />
-
-     
-      <textarea name="message" className="form-control"  rows="4" placeholder="Message"></textarea>
-    <input type="submit"  className="mt-4 form-control btn btn-secondary" value="send" />
-
-
-
-        </form>
+<div>
+  <h2>Contact Me</h2>
+  <form
+    className="row"
+    style={{ margin: "25px 15px", maxWidth: "400px", width: "100%" }}
+    onSubmit={sendEmail}
+  >
+    <div className="col-md-12">
+      <input
+        type="text"
+        name="name"
+        className="form-control"
+        placeholder="Name"
+      />
     </div>
-    
-    
+    <div className="col-md-12 mt-4">
+      <input
+        type="email"
+        name="user_email"
+        className="form-control"
+        placeholder="Email"
+      />
+    </div>
+    <div className="col-md-12 mt-4">
+      <textarea
+        name="message"
+        className="form-control"
+        rows="4"
+        placeholder="Message"
+      ></textarea>
+    </div>
+    <div className="col-md-12 mt-4">
+      <input
+        type="submit"
+        className="form-control btn btn-secondary"
+        value="Send"
+      />
+    </div>
+  </form>
+</div>
+
+    </div>
     
     </>
 )
